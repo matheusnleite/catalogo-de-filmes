@@ -12,7 +12,7 @@ export default function MovieCard({
   const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4 text-white flex flex-col">
+    <div className="bg-gray-800 rounded-lg p-4 text-white flex flex-col shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
       <img
         src={imageUrl}
         alt={`Pôster do filme ${title}`}

@@ -39,7 +39,7 @@ export default function PaginaDeBusca() {
   };
 
   return (
-    <div className="flex flex-col items-center p-8">
+    <div className="container mx-auto flex flex-col items-center p-8">
       <h1 className="text-3xl font-bold mb-4">Busque por um Filme</h1>
 
       <div className="flex gap-2">
@@ -58,23 +58,27 @@ export default function PaginaDeBusca() {
         </button>
       </div>
 
-      {/* 3. NOVA ÁREA DE RESULTADOS COM LÓGICA CONDICIONAL */}
       <div className="mt-8 w-full text-center">
         {pesquisaFeita && resultados.length === 0 ? (
           <p className="text-gray-400">
             Nenhum resultado encontrado para sua busca.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {resultados.map((filme) => (
-              <MovieCard
-                key={filme.id}
-                title={filme.title}
-                posterPath={filme.poster_path}
-                releaseDate={filme.release_date}
-              />
-            ))}
-          </div>
+          <>
+            <h2 className="text-2xl font-bold mb-6 text-white">
+              Resultados da Busca
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {resultados.map((filme) => (
+                <MovieCard
+                  key={filme.id}
+                  title={filme.title}
+                  posterPath={filme.poster_path}
+                  releaseDate={filme.release_date}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
