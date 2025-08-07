@@ -13,7 +13,7 @@ type Movie = {
 export default function PaginaDeBusca() {
   const [termoBusca, setTermoBusca] = useState("");
   const [resultados, setResultados] = useState<Movie[]>([]);
-  // 1. NOVO ESTADO
+
   const [pesquisaFeita, setPesquisaFeita] = useState(false);
 
   const handleSearch = async () => {
@@ -22,7 +22,6 @@ export default function PaginaDeBusca() {
       return;
     }
 
-    // 2. ATIVAÇÃO DO NOVO ESTADO
     setPesquisaFeita(true);
 
     const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -38,11 +37,16 @@ export default function PaginaDeBusca() {
     }
   };
 
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleSearch();
+  };
+
   return (
     <div className="container mx-auto flex flex-col items-center p-8">
       <h1 className="text-3xl font-bold mb-4">Busque por um Filme</h1>
 
-      <div className="flex gap-2">
+      <form onSubmit={handleFormSubmit} className="flex gap-2">
         <input
           type="text"
           value={termoBusca}
@@ -51,12 +55,12 @@ export default function PaginaDeBusca() {
           placeholder="Ex: Matrix, Vingadores..."
         />
         <button
-          onClick={handleSearch}
+          type="submit"
           className="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700"
         >
           Buscar
         </button>
-      </div>
+      </form>
 
       <div className="mt-8 w-full text-center">
         {pesquisaFeita && resultados.length === 0 ? (
@@ -72,6 +76,7 @@ export default function PaginaDeBusca() {
               {resultados.map((filme) => (
                 <MovieCard
                   key={filme.id}
+                  id={filme.id}
                   title={filme.title}
                   posterPath={filme.poster_path}
                   releaseDate={filme.release_date}
